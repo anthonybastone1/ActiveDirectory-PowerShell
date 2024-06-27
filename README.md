@@ -221,7 +221,7 @@ Authorized and refreshed by right clicking on the domain. We now see the green c
 <img src="https://imgur.com/EAFli4Y.png" height="80%" width="80%"/>
 <br/> 
 <br/>
-Noticed that the our router did not populate in the IPv4 Sever Options folder. To fix that, we just add it in
+Noticed that the our router did not populate in the IPv4 Sever Options folder. So we'll go ahead and add that in now.
 <br/>  
 <br/>
 <img src="https://imgur.com/MvMCPsV.png" height="80%" width="80%"/>
