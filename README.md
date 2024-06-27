@@ -5,10 +5,10 @@ This Active Directory home lab aims to design, implement, and secure an Active D
 
 <h2>Key Objectives</h2>
 
-- Design and Implement Active Directory Environment in Server 2019
-- Configure Domain Controller and Network Services - DHCP, RAS, NAT
-- Automate User Creation with PowerShell
-- Deploy Windows 10 Client Machine and Validate
+- <b>Design and Implement Active Directory Environment in Server 2019</b>
+- <b>Configure Domain Controller and Network Services - DHCP, RAS, NAT</b>
+- <b>Automate User Creation with PowerShell</b>
+- <b>Deploy Windows 10 Client Machine and Validate</b>
 
 <h2>Languages and Utilities Used</h2>
 
@@ -17,7 +17,7 @@ This Active Directory home lab aims to design, implement, and secure an Active D
 <h2>Environments Used </h2>
 
 - <b>Oracle VirtualBox</b>
-- <b>Windows 10 VM (Client Machine)
+- <b>Windows 10 VM (Client Machine)</b>
 - <b>Windows Server 2019 (DC)</b>
 
 <h2>Project Diagram:</h2>
