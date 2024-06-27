@@ -224,7 +224,7 @@ Authorized and refreshed by right clicking on the domain. We now see the green c
 Noticed that the our router did not populate in the IPv4 Sever Options folder. To fix that, we just add it in
 <br/>  
 <br/>
-<img src="https://imgur.com/nsVOwDX.png" height="80%" width="80%"/>
+<img src="https://imgur.com/MvMCPsV.png" height="80%" width="80%"/>
 <br/>
 <br/> 
 Now that we've configured out router and DHCP scope, we can get our PowerShell script.
