@@ -1,9 +1,7 @@
 <h1>Active Directory Home Lab - Adding Users with PowerShell</h1>
 
 <h2>Description</h2>
-This Active Directory home lab aims to design, implement, and secure an Active Directory environment using Windows Server 2019 and VirtualBox for virtualization. The project involves setting up a Domain Controller (DC) with dual NICs for outside internet and internal network communication, configuring DHCP and RAS/NAT services, and deploying a Windows 10 client machine for testing. A PowerShell script will automate the management of over 1,000 user accounts, removing the need to input users manually. Lastly, the user accounts are tested to verify successful configuration.
-
-In this project, I created an Active Directory home lab using VirtualBox, Windows Server 2019, and a Windows 10 VM. Configuring and running this lab helped me better understand Windows networking and how Active Directory works. The lab consists of configuring two virtual machines, one acting as the DC that hosts Active Directory with two network adaptors that lead to the outside internet and internal network, and the other being the Client machine where Windows 10 is installed. In the end, over 1,000 users are created with a PowerShell script to streamline the process.
+This Active Directory home lab aims to design, implement, and secure an Active Directory environment using Windows Server 2019 and VirtualBox for virtualization. The project involves setting up a Domain Controller (DC) with dual NICs for outside internet and internal network communication, configuring DHCP and RAS/NAT services, and deploying a Windows 10 client machine for testing. A PowerShell script will automate the creation of over 1,000 user accounts, removing the need to input users manually. Lastly, the user accounts are tested to verify successful configuration.
 
 <h2>Key Objectives</h2>
 
@@ -26,6 +24,7 @@ In this project, I created an Active Directory home lab using VirtualBox, Window
 <br />
 <img src="https://imgur.com/i0NQs4X.png"height="80%" width="80%"/>
 <br />
+
 <h2>Domain Controller Configuration:</h2>
 
 <p align="center">
@@ -39,16 +38,10 @@ Creating the Windows Server 2019 machine. Making sure to set up the two NICs for
 <img src="https://imgur.com/i7ZgI2Z.png"height="80%" width="80%"/>
 <br />
 <br />
-<br /> 
-<br />
-<br />
 Renaming the device to simplify things.
 <br/>
 <br/>
 <img src="https://imgur.com/6uccNNQ.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
 <br />
 <br />
 Here we see our two network adaptors. Now we need to verify which is for the internet and which is for the internal network, name them appropriately, and configure the proper IP address for the internal network.
@@ -57,16 +50,10 @@ Here we see our two network adaptors. Now we need to verify which is for the int
 <img src="https://imgur.com/0Pmiaw3.png"height="80%" width="80%"/>
 <br />
 <br />
-<br /> 
-<br />
-<br /> 
 First, we can check the details of the Ethernet network and look at the IP address. We see it is 10.0.2.15, which would be our home network IP address for NAT. After identifying that, we can go ahead and rename the network to better identify it.
 <br/>
 <br/>
 <img src="https://imgur.com/zyJwDtt.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
 <br />
 <br />
 Next, we can take a look at the IP address of Ethernet 2, which is 169.254.169.131. This means that this adapter was searching for a DHCP server to get an IP address from somewhere, but was unable to find one. So it had an IP address automatically assigned to it by the virtual machine, letting us know that this is the internal network. 
@@ -77,9 +64,6 @@ After understanding that, we can go ahead an also rename this network.
 <br />
 <img src="https://imgur.com/qaUGVpp.png" height="80%" width="80%"/>
 <br /> 
-<br />
-<br />
-<br />
 <br />
 Now that we know which network is which, we can go ahead and assign the proper IP address to the internal network according to our diagram. 
 <br />
@@ -95,9 +79,6 @@ We'll also designate a /24 subnet mask and use our loopback address for the pref
 <br />
 <img src="https://imgur.com/FvevBJ4.png" height="80%" width="80%"/>
 <br /> 
-<br />
-<br />
-<br />
 <br />
 Next, we will install AD DS and create a domain
 <br/>
@@ -117,16 +98,10 @@ Promoting the server to a DC:
 <img src="https://imgur.com/vRPW6qO.png" height="80%" width="80%"/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
 After promoting the server to a DC, we are now able to log in to the domain with the built-in admin account.
 <br/>
 <br/>
 <img src="https://imgur.com/M3hEunZ.png" height="80%" width="80%"/>
-<br/>
-<br/>
-<br/>
 <br/>
 <br/>
 Now we'll create a dedicated admin account instead of using the built in admin account.
@@ -150,9 +125,6 @@ Inside the OU, we've created the user, Anthony Bastone.
 <img src="https://imgur.com/wXcXnRy.png" height="80%" width="80%"/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/> 
 Since we've now created the user, we need to make them an domain admin.
 <br/>
 <br/>
@@ -162,18 +134,12 @@ This can be done by right clicking on the user, selecting properties, member of,
 <img src="https://imgur.com/LfwGI6t.png" height="80%" width="80%"/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/> 
 Let's verify that we can login to the domain admin account now.
 <br/>
 <br/> 
 <img src="https://imgur.com/r2uxnXn.png" height="80%" width="80%"/> 
 <br/>
 <br/>
-<br/> 
-<br/>
-<br/>  
 Once we've logged into the domain admin account, we'll go back to the Server Manager and add roles and features. We will install remote access and routing.
 <br/>
 <br/>
@@ -195,9 +161,6 @@ Installation succeeded:
 <img src="https://imgur.com/qqOZJic.png" height="80%" width="80%"/>
 <br/>
 <br/>
-<br/>
-<br/> 
-<br/>
 Next, we'll go to routing and remote access tools to configure and enable our NAT internet connection.
 <br/>
 <br/>
@@ -216,9 +179,6 @@ We want to make sure to select our X_INTERNET_X interface to connect to the inte
 <img src="https://imgur.com/NbPcSuX.png" height="80%" width="80%"/>
 <br/>
 <br/>  
-<br/>
-<br/>
-<br/> 
 Once RAS/NAT has been configured, we will set up a DHCP server on the DC to allow the Windows 10 clients to get an IP address and be able to browse the internet.
 <br/>
 <br/>  
@@ -230,9 +190,6 @@ DHCP installation succeeded:
 <br/>
 <img src="https://imgur.com/U00JLtl.png" height="80%" width="80%"/>
 <br/>  
-<br/>
-<br/>  
-<br/>
 <br/>
 Just like routing and remote access tools, we'll select DHCP tools to set up our scope.
 <br/> 
@@ -248,304 +205,193 @@ There will be no IP exlusions and the lease duration isn't too important here si
 <br/> 
 <img src="https://imgur.com/nF2A8yC.png" height="80%" width="80%"/>
 <br/>
-<br/>  
+<br/>
+Adding the IP address for the router that will be used by the clients. The clients will be using the internal NIC as the default gateway/router.
 <br/>
 <br/>
+<img src="https://imgur.com/TIs6pfL.png" height="80%" width="80%"/>
 <br/> 
 <br/>
-<br/>  
+<img src="https://imgur.com/dLxmOrG.png" height="80%" width="80%"/>
 <br/>
 <br/>
+Authorized and refreshed by right clicking on the domain. We now see the green check marks next to IPv4 and IPv6 letting us know we're good.
+<br/>
+<br/>
+<img src="https://imgur.com/EAFli4Y.png" height="80%" width="80%"/>
 <br/> 
 <br/>
+Noticed that the our router did not populate in the IPv4 Sever Options folder. To fix that, we just add it in
 <br/>  
 <br/>
+<img src="https://imgur.com/nsVOwDX.png" height="80%" width="80%"/>
 <br/>
 <br/> 
+Now that we've configured out router and DHCP scope, we can get our PowerShell script.
 <br/>
+<br/>
+We'll download the PowerShell script by Josh Madakor. This will allow us to create over 1,000 users without having to do it manually.
+<br/>
+<br/>
+<img src="https://imgur.com/leYSQzI.png" height="80%" width="80%"/>
+<br/>
+<br/>
+Extract the script onto the desktop and then open the "names" text file.
+<br/> 
+<br/>
+<img src="https://imgur.com/df8JTok.png" height="80%" width="80%"/>
 <br/>  
 <br/>
-<br/>
-<br/> 
-<br/>
+Added my own name to make it easier to remember when testing on the client machine.
 <br/>  
 <br/>
-<br/>
-<br/> 
-<br/>
-<br/>  
+<img src="https://imgur.com/IWZf2zk.png" height="80%" width="80%"/>
 <br/>
 <br/>
-<br/> 
-
-
-
-<h2>Windows 10 (Target Machine):</h2>
-
-<p align="center">
-  
+Now we'll run PowerShell ISE as an administrator and open the PowerShell script.
 <br />
-Moving onto the target machine, the first thing I did was change the device name to target-PC.
+<br />
+<img src="https://imgur.com/24vdS6l.png" height="80%" width="80%"/>
 <br />
 <br />
-<img src="https://imgur.com/2y2V2Ib.png" height="80%" width="80%"/>
+Before we can run the script, we need to set the execution policy to unrestricted and change directories to where the script is at with the following commands:
 <br />
+<br />
+Set-ExecutionPolicy unrestricted
+<br /> 
+<br />
+cd C:\users\a-abastone\Desktop\AD_PS-master
+<br /> 
+<br />
+We can then list the contents of the directory and see that our file is indeed located there.
+<br /> 
+<br />
+<img src="https://imgur.com/chQKAFr.png" height="80%" width="80%"/>
+<br /> 
+<br />
+When looking at the script that we've opened, we can see that we will be:
+<br />
+<br />
+- Creating a password for all users.
+<br />
+<br />
+- Pulling the names file for PowerShell to run.
+<br />
+<br />
+- Converting the plain text password into a secure string for PowerShell to run.
+<br />
+<br />
+- Creating a new organization unit (OU) named _USERS, and are not protecting it from accidental deletion in case we want to practice this lab again.
+<br />
+<br />
+- Running a loop to run the following block of code that will create and enable the users themselves with the names file.
+<br />
+<br />
+<img src="https://imgur.com/d6hZzRI.png" height="80%" width="80%"/>
+<br />
+<br />
+Now we'll go ahead and run the script.
+<br />
+<br />
+<img src="https://imgur.com/JbkCGMc.png" height="80%" width="80%"/>
+<br />
+<br />
+Now the users have been created. We can go into Active Directory and see that the _USERS file has been created. Inside the file we'll find all of the users that have been created as well.
+<br />
+<br />
+<img src="https://imgur.com/1ZtgcuI.png" height="80%" width="80%"/>
+<br />
+<br />
+To dig even deeper, we can right click on the file and select find to search for a specific user.
+<br />
+<br />
+<img src="https://imgur.com/EKCQ3nc.png" height="80%" width="80%"/>
+<br /> 
+<br />
+We can also switch out of the _USERS file, into the domain, and search again. We notice that we've now found the user and the administrator account.
+<br />
+<br />
+<img src="https://imgur.com/UlOSgYg.png" height="80%" width="80%"/>
 <br />
 <br /> 
 <br />
 <br />
-Next, I used the command ipconfig to take a look at the IP address of the machine. It's set to the address that needs to be used for my Windows Server, so I set a static IP address of 192.168.10.100
+<br />
+  
+<h2>Windows 10 VM (Client Machine):</h2>
+
+<p align="center">
+  
+<br />
+Now that we've successfully created over 1,000 users with PowerShell, we can go ahead and configure our Windows 10 client machine on the internal NIC to test our work.
+<br />
+Connecting this VM to the internal network will allow us to get a DHCP address from the DC.
 <br />
 <br />
-<img src="https://imgur.com/l9pwBtq.png" height="80%" width="80%"/>
+<img src="https://imgur.com/dyN5MDU.png" height="80%" width="80%"/>
 <br />
 <br />
-<img src="https://imgur.com/dCjwQEj.png" height="80%" width="80%"/>
+Opened up the command line and ran the following command, ipconfig, to verify that we are indeed connected to the internet with the proper IP address and default gateway:
 <br />
 <br />
+<img src="https://imgur.com/9xsPPQr.png" height="80%" width="80%"/>
+<br />
+<br />
+We'll also go ahead and ping google.com as well as our own DC, bastonesdomain.com, to test for connectivity.
+<br />
+<br />
+<img src="https://imgur.com/ktE2cQ2.png" height="80%" width="80%"/>
+<br />
+<br />
+After verifying connectivity, let's now rename the device and join the device to the domain via our created admin account.
+<br />
+<br />
+To do this, we will go to the settings and Rename this PC (advanced), instead of the regular Rename this PC.
+<br />
+<br />
+<img src="https://imgur.com/ENytD3g.png" height="80%" width="80%"/>
+<br />
+<br />
+<img src="https://imgur.com/TVH3jFT.png" height="80%" width="80%"/>
 <br /> 
 <br />
+<img src="https://imgur.com/P3xEJVS.png" height="80%" width="80%"/>
 <br />
-After setting the designated IP address, I began installing splunk forwarder. There is no deployment server here, so I only needed to input my splunk server address for the receiving indexer.
 <br />
+<img src="https://imgur.com/IRYJAlu.png" height="80%" width="80%"/>
 <br />
-<img src="https://imgur.com/bYpnVJ9.png" height="80%" width="80%"/>
 <br />
 <br />
 <br />
 <br />
-<br />
-Following the splunk forwarder installation, I downloaded sysmon and used the sysmon configuration by Olaf.
-<br />
-<br />
-<img src="https://imgur.com/XdzyuHw.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Successfully installed sysmon by running the following command in PowerShell:
-<br />
-<br />
-<img src="https://imgur.com/z5pgWvp.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Here I created a new inputs.conf file under the local directory and not the default directory. I ran the notepad as an administrator with the following lines of code that instruct the splunk forwarder to push events related to application, security, system, and sysmon over to the splunk server. I have the index pointing to an index named endpoint, so any events that fall under the aforementioned categories will be send to splunk and placed under that specific index.
-<br />
-<br />
-<img src="https://imgur.com/6hgRg2L.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/TPYlOjJ.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Before restarting splunk forwarder for the changes to take effect, I needed to change the logon setting to logon as a local system account instead of the NT SERVICE account. I did this because the splunk forwarder would not be able to collect logs due to some of the permissions.
-<br />
-<br />
-<img src="https://imgur.com/njRedhb.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-After getting splunk and sysmon successfully installed on the target-PC, I logged onto my splunk enterprise web portal to create my endpoint index.
-<br />
-<br />
-<img src="https://imgur.com/7786WSE.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/kaKeZ2I.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Once the endpoint index was created, I enabled the splunk server to receive the data.
-<br />
-<br />
-<img src="https://imgur.com/4YjoK2Z.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Checking to see if the data is being received by the splunk server. Confirming the host machine that's been logged is correct and identifying the categories that I included in the new inputs.conf file in the local directory.
-<br />
-<br />
-<img src="https://imgur.com/uSYZXyg.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/KtaN8ec.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/0PcuSZa.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-
-<h2>Windows Server (ADDC):</h2>
+<h2>Verify Successful Configuration:</h2>
 
 <p align="center">
   
 <br />
-To install sysmon and splunk on my Active Directory server, I followed the same steps as the target-PC. The first thing I did was rename the device to ADDC01. In the end, I verified all of my work in the splunk enterprise web portal. Everything was successfully installed and configured, and now two hosts were logged instead of one. The two hosts being the target-PC and ADDC01.
+We've now joined the client machine to our DC, so we'll go back to the DC and open up our DHCP to verify that everything has been configured properly.
 <br />
 <br />
-<img src="https://imgur.com/8v0eeNs.png" height="80%" width="80%"/>
+We can see our lease from our client machine in the scope that we've created.
+<img src="https://imgur.com/igjqc0R.png" height="80%" width="80%"/>
 <br />
 <br />
+Within Active Directory, we can go into the computers file and see that our client machine is now a member of the domain.
 <br />
 <br />
+<img src="https://imgur.com/N47hqgX.png" height="80%" width="80%"/>
 <br />
-After installing sysmon and splunk, I assigned a static IP address of 192.168.10.7 with the same subnet mask of 255.255.255.0 since it is a /24. Still using Google's DNS of 8.8.8.8.
 <br />
+Let's now switch users and try to login as one of our newly created users, Anthony Bastone (abastone), not the administrator Anthony Bastone (a-abastone)
 <br />
-Then I opened the server manager and installed AD DS (Active Directory Domain Services), followed by promoting the server to a domain controller (DC)
 <br />
+<img src="https://imgur.com/3tAJEr5.png" height="80%" width="80%"/>
 <br />
-<img src="https://imgur.com/maOd4eD.png" height="80%" width="80%"/>
 <br />
+We've successfully logged in as one of our users. In case you want something more concrete, we can open up the command line and run the following command, whoami, and ping the internet one more time.
 <br />
-<img src="https://imgur.com/YMw1hJd.png" height="80%" width="80%"/>
 <br />
-<br />
-<br />
-<br />
-<br />
-Next, I created two organizational units and two users.
-<br />
-<br />
-<img src="https://imgur.com/CfZuJdY.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/k3z188z.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Joinning the target-PC to the new domain, ab.local, and authenticating using James Brown's account. But first, the target-PC could not resolve ab.local due to the DNS server pointing to Google's DNS. So I changed it to point to the DC at 192.168.10.7 and confirmed with ipconfig /all in the command prompt that the new DNS server is active.
-<br />
-<br />
-<img src="https://imgur.com/CEk89PK.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/wXWtg9E.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/RVnAVty.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/3EBq6D3.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-<h2>Kali Linux VM (Attacker Machine):</h2>
-
-<p align="center">
-  
-<br />
-Assigning a static IP address of 192.168.10.250/24. Verified the change took place by running the command ip a and pinging google.com and the splunk server at 192.168.10.10.
-<br />
-<br />
-<img src="https://imgur.com/Xf6UHpf.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/hKU8CJd.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/ffvCanW.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Installed updates and upgrades then created a new directory named ad-project. Installed the tool crowbar to use for the brute force attack, and rockyou wordlist to aid in the attack. 
-<br />
-<br />
-<img src="https://imgur.com/GO9FcOj.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/YPqJ5Js.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Enabled RDP for both users that I created on the Windows machine (target-PC), then conducted the brute force attack in the Kali Linux VM by running the follwoing command:
-<br />
-<br />
-crowbar -b rdp -u jbrown -C passwords.txt -s 192.168.10.100/32
-<br />
-<br />
-Used /32 because I only wanted to target that specific IP address.
-<br />
-<br />
-<img src="https://imgur.com/Sojv0LM.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/tdZrPHg.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-As you can see above, the brute force attack on the user James Brown was successful. So I logged into the splunk web server and queried the database for information related to the attack in the images below. You will notice the event ID 4625 with a count of 20. A quick google search tells us that the event ID 4625 is for failed attempts to log in to a local computer. When I expanded the section, all the attempts occurred at the same time, indicating a brute force attack.
-<br />
-<br />
-There is also an event ID 4624 with a count of 1. This is indicative of a successful attempt to login to a local computer. This also occurred at the same time as the 20 failed attempts, confirming that the successful attempt was part of the brute force attack. So we've seen it from the attacker's side in Kali Linux, and the defender's side in splunk.
-<br />
-<br />
-<img src="https://imgur.com/AUBXxSz.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/McbCFvX.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/ywmI6dT.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/7VmN0Ja.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Lastly, I set an exclusion for the C drive on the target-PC before installing Atomic Red Team (ART) since Windows Defender can detect and remove some of the files from ART. After doing so, I installed ART.
-<br />
-<br />
-<img src="https://imgur.com/P3CWwJP.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/K6QjNV2.png" height="80%" width="80%"/>
-<br />
-<br />
-<br />
-<br />
-<br />
-Generating telemetry based on creating a local account, NewLocalUser. Searched splunk for NewLocalUser to see if it was detected. Repeated the ART test with another Mitre Att&ck framework technique ID. Both events were detected and they can be used to build alerts based on these activities in the future.
-<br />
-<br />
-<img src="https://imgur.com/iBVk2nw.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/0lQIHCG.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/5JBIbEv.png" height="80%" width="80%"/>
-<br />
-<br />
-<img src="https://imgur.com/TiaJ8p0.png" height="80%" width="80%"/>
+<img src="https://imgur.com/gaP6eZQ.png" height="80%" width="80%"/>
 
 </p>
 
@@ -553,7 +399,14 @@ Generating telemetry based on creating a local account, NewLocalUser. Searched s
 <br />
 
 <h2>Conclusion</h2>
-In this project, I configured four virtual machines. A windows 10 VM, windows server, splunk server, and Kali Linux VM. During the project, I was able to acquire hands-on experience from a multitude of commands, environments, and simulated real-world attacks. I was also able to successfully install sysmon, splunk forwarder, splunk enterprise SIEM, and Atomic Red Team. I've found them to be valuable assets when it comes to cybersecurity as they can help one identity threaths and vulnerabilities within a network. This home lab has equipped me with valuable experience in red teaming and blue teaming. I look forward to continuing to learn and practice the skills necessary for effective security monitoring.
+
+The completion of this Active Directory home lab successfully demonstrated the design, implementation, and configuration of an Active Directory environment using Windows Server 2019 and Oracle VirtualBox. By setting up a Domain Controller with dual NICs for both external and internal network communication, configuring DHCP and RAS/NAT services, and deploying a Windows 10 client machine, I was able to achieve a fully functional network setup.
+<br />
+<br />
+The automation of user account creation via a PowerShell script eliminated the tedious process of manual input and ensured the efficient and accurate setup of over 1,000 user accounts. The integration of the Windows 10 client machine into the domain and the successful login and connectivity tests confirmed the proper configuration of the network services and user accounts.
+<br />
+<br />
+Overall, this project provided practical insights and hands-on experience with Active Directory, networking, and automation using PowerShell. Although the lab was relatively simple, mastering the fundamentals will always be beneficial in the long run. The skills and knowledge gained from this project are incredibly valuable for future work in IT infrastructure and systems administration.
 
 <!--
  ```diff
